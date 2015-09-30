@@ -1,8 +1,9 @@
 require_relative '../models/address_book'
-require 'csv'
 
 RSpec.describe AddressBook do
   let(:book) { AddressBook.new }
+  let(:book_2) { AddressBook.new }
+
 
   def check_entry(entry, expected_name, expected_number, expected_email)
     expect(entry.name).to eql expected_name
@@ -15,7 +16,7 @@ RSpec.describe AddressBook do
       expect(book).to respond_to(:entries)
     end
 
-    it "should initialize entires as an array" do
+    it "should initialize entries as an array" do
       expect(book.entries).to be_a(Array)
     end
 
@@ -78,6 +79,32 @@ RSpec.describe AddressBook do
       entry_five = book.entries[4]
       check_entry(entry_five, "Sussie", "555-555-2036", "sussie@blocmail.com")
     end
+# assignment 23 - import from entries_2.csv
+    it "imports the correct number of entries" do
+      book_2.import_from_csv("entries_2.csv")
+      book_size = book_2.entries.size
+
+      expect(book_size).to eql 3
+    end
+
+    it "imports the 1st entry" do
+      book_2.import_from_csv("entries_2.csv")
+      entry_one = book_2.entries[0]
+      check_entry(entry_one, "George", "555-666-4854", "george@blocmail.com")
+    end
+
+    it "imports the 2nd entry" do
+      book_2.import_from_csv("entries_2.csv")
+      entry_two = book_2.entries[1]
+      check_entry(entry_two, "Johnny", "555-666-5415", "johnny@blocmail.com")
+    end
+
+    it "imports the 3rd entry" do
+      book_2.import_from_csv("entries_2.csv")
+      entry_three = book_2.entries[2]
+      check_entry(entry_three, "Leon", "555-666-3660", "leon@blocmail.com")
+    end
+
 
   end
 
