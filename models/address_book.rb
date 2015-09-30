@@ -39,6 +39,14 @@ class AddressBook
     return nil
   end
 
+  def iterative_search(name)
+    @entries.each do |entry|
+      return entry if entry.name == name
+    end
+    return nil
+      
+  end
+
   def import_from_csv(file_name)
     csv_text = File.read(file_name)
     csv = CSV.parse(csv_text, headers: true, skip_blanks: true)
